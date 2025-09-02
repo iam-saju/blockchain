@@ -1,5 +1,6 @@
 #pragma once
 #include "blockutils.h"
+#include "pow.h"
 
 inline void mineBlock(block &b,int difficulty){
     std::string target(difficulty,'0');
@@ -8,9 +9,10 @@ inline void mineBlock(block &b,int difficulty){
     b.hash = calculateHash(b);
     
     // Mine until we find a hash that starts with the required number of zeros
-    while(b.hash.substr(0,difficulty)!= target){
-        b.nonce++;
+    while(true){
         b.hash = calculateHash(b);
+        if(proofofwork(b,difficulty))break;
+        b.nonce++;
     }
     
     std::cout << "Block mined! Hash: " << b.hash << " (Nonce: " << b.nonce << ")" << std::endl;
