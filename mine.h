@@ -15,5 +15,4 @@ inline void mineBlock(block &b,int difficulty){
         b.nonce++;
     }
     
-    std::cout << "Block mined! Hash: " << b.hash << " (Nonce: " << b.nonce << ")" << std::endl;
 }

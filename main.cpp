@@ -1,13 +1,21 @@
 #include <iostream>
 #include "blockchain.h"
+#include "transc.h"
 
 int main(){
-    blockchain b1(3);
-    b1.addBlock("eth-transaction");
-    b1.addBlock("sol-transaction");
-    b1.addBlock("doge-transaction");
-    b1.addBlock("shib-transaction");
-    b1.addBlock("ltc-transaction");
+    blockchain bc(3);
 
-    b1.showChain();
+    //bc.showChain();
+    //bc.showUTXO();
+
+    tx t1;
+    outpoint input1{"genesis", 0}; // spending genesis output
+    t1.tx_in.push_back({input1, ""});
+    t1.tx_out.push_back({20, "Bob"});
+    t1.tx_out.push_back({30, "miner1"}); // change back
+
+    bc.addBlock({t1});
+
+    bc.showChain();
+    //bc.showUTXO();
 }
